@@ -75,12 +75,12 @@ def predict():
         st.session_state.prediction = "Error"
 
 
+
 st.selectbox(
     "Manufacturer",
     options=options["manufacturer"],
     placeholder="Select a manufacturer",
     key="manufacturer",
-    on_change=predict
 )
 
 st.selectbox(
@@ -91,7 +91,6 @@ st.selectbox(
     ),
     placeholder="Select a year",
     key="year",
-    on_change=predict
 )
 
 st.slider(
@@ -101,7 +100,6 @@ st.slider(
     step=1000,
     format="%dkm",
     key="km",
-    on_change=predict
 )
 
 st.slider(
@@ -111,35 +109,30 @@ st.slider(
     step=1,
     format="%d kmpl",
     key="mileage",
-    on_change=predict
 )
 
 st.selectbox(
     "Fuel Type",
     options=options["fuel_type"],
     key="fuel",
-    on_change=predict
 )
 
 st.selectbox(
     "Seller Type",
     options=options["seller_type"],
     key="seller",
-    on_change=predict
 )
 
 st.selectbox(
     "Transmission type",
     options=options["transmission"],
     key="transmission",
-    on_change=predict
 )
 
 st.selectbox(
     "Owner type",
     options=options["owner_type"],
     key="owner",
-    on_change=predict
 )
 
 st.slider(
@@ -149,7 +142,6 @@ st.slider(
     step=100,
     format="%dcc",
     key="engine",
-    on_change=predict
 )
 
 st.slider(
@@ -158,11 +150,10 @@ st.slider(
     max_value=options["power"]["max"],
     step=10,
     key="power",
-    on_change=predict
 )
 
-predict()
-st.success(f"prediction: {st.session_state.prediction}")
+st.button("Predict", on_click=predict)
+st.success(f"Price Evaluation(INR): {st.session_state.prediction * 0.85} to {st.session_state.prediction * 1.15}" if st.session_state.prediction != "Error" else "Error in prediction")
 
 st.text("")
 st.text("")
@@ -171,7 +162,7 @@ st.markdown("""
 
 #### Project for the Productionalizing ML on Cloud course at Plaksha Tech Leaders Fellowship.
 
-based on CarDekho sales data (1994-2020)
+[Based on CarDekho User Car Sales Data for cars manufactured from 1994 to 2020](https://www.kaggle.com/nehalbirla/vehicle-dataset-from-cardekho)
                         
 ### Git Repositories
 - [Streamlit](https://github.com/amalunnikrishnan/car-price-streamlit)
