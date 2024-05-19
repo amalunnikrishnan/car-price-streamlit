@@ -154,8 +154,8 @@ st.slider(
 
 st.button("Predict", on_click=predict)
 if "prediction" in st.session_state:
-    min_pred = st.session_state.prediction * 0.85
-    max_pred = st.session_state.prediction * 1.15
+    min_pred = round(st.session_state.prediction * 0.85, 2)
+    max_pred = round(st.session_state.prediction * 1.15, 2)
     if st.session_state.prediction == "Error":
         st.error("Error in prediction")
     else:
