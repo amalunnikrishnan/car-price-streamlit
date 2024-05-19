@@ -1,5 +1,4 @@
 import json
-import joblib
 import pandas as pd
 import streamlit as st
 import numpy as np
@@ -9,7 +8,8 @@ options = json.load(open("options.json"))
 st.header("Car prediction predictor")
 
 # Update this URL to point to your deployed Flask API
-url = "http://localhost:5000/predict"
+url = "https://car-price-flask-api.onrender.com/predict"
+
 
 def high_end_check(manufacturer):
     if manufacturer.lower() in options["high_end"]:
@@ -17,36 +17,42 @@ def high_end_check(manufacturer):
     else:
         return 0
 
+
 def is_second(owner):
     if owner == "Second":
         return 1
     else:
         return 0
 
+
 def is_first(owner):
     if owner == "First":
         return 1
     else:
         return 0
-    
+
+
 def check_fuel_type(fuel):
     if fuel == "Diesel":
         return 1
     else:
         return 0
 
+
 def check_seller_type(seller):
     if seller == "Individual":
         return 1
     else:
         return 0
-    
+
+
 def check_trans(transmission):
     if transmission == "Automatic":
         return 1
     else:
         return 0
-    
+
+
 def predict():
     i = {
         "fuel": check_fuel_type(st.session_state.fuel),
@@ -60,7 +66,7 @@ def predict():
         "first": is_first(st.session_state.owner),
         "second": is_second(st.session_state.owner),
         "age": 2021 - st.session_state.year
-    }    
+    }
     response = requests.post(url, json=i)
     print(response.text)
     if response.status_code == 200:

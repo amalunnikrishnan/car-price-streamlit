@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY streamlit_app.py .
+COPY . .
 
 EXPOSE 8501
 
