@@ -153,8 +153,14 @@ st.slider(
 )
 
 st.button("Predict", on_click=predict)
-st.success(f"Price Evaluation(INR): {st.session_state.prediction * 0.85} to {st.session_state.prediction * 1.15}" if st.session_state.prediction != "Error" else "Error in prediction")
-
+if "prediction" in st.session_state:
+    min_pred = st.session_state.prediction * 0.85
+    max_pred = st.session_state.prediction * 1.15
+    if st.session_state.prediction == "Error":
+        st.error("Error in prediction")
+    else:
+        st.success(f"Price Evaluation(INR): {min_pred} to {max_pred}")
+    
 st.text("")
 st.text("")
 st.text("")
