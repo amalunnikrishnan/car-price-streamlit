@@ -9,7 +9,7 @@ options = json.load(open("options.json"))
 st.header("Car prediction predictor")
 
 # Update this URL to point to your deployed Flask API
-url = "http://localhost:5000/predict"
+url = "https://car-price-flask-api.onrender.com/predict"
 
 def high_end_check(manufacturer):
     if manufacturer.lower() in options["high_end"]:
@@ -62,7 +62,6 @@ def predict():
         "age": 2021 - st.session_state.year
     }    
     response = requests.post(url, json=i)
-    print(response.text)
     if response.status_code == 200:
         st.session_state.prediction = response.json()["prediction"]
     else:
