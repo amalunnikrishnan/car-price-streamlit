@@ -6,10 +6,11 @@ import numpy as np
 import requests
 
 options = json.load(open("options.json"))
-st.header("Car prediction predictor")
+st.title("Used Car Price Predictor")
 
 # Update this URL to point to your deployed Flask API
 url = "https://car-price-flask-api.onrender.com/predict"
+
 
 def high_end_check(manufacturer):
     if manufacturer.lower() in options["high_end"]:
@@ -17,36 +18,42 @@ def high_end_check(manufacturer):
     else:
         return 0
 
+
 def is_second(owner):
     if owner == "Second":
         return 1
     else:
         return 0
 
+
 def is_first(owner):
     if owner == "First":
         return 1
     else:
         return 0
-    
+
+
 def check_fuel_type(fuel):
     if fuel == "Diesel":
         return 1
     else:
         return 0
 
+
 def check_seller_type(seller):
     if seller == "Individual":
         return 1
     else:
         return 0
-    
+
+
 def check_trans(transmission):
     if transmission == "Automatic":
         return 1
     else:
         return 0
-    
+
+
 def predict():
     i = {
         "fuel": check_fuel_type(st.session_state.fuel),
@@ -60,7 +67,7 @@ def predict():
         "first": is_first(st.session_state.owner),
         "second": is_second(st.session_state.owner),
         "age": 2021 - st.session_state.year
-    }    
+    }
     response = requests.post(url, json=i)
     if response.status_code == 200:
         st.session_state.prediction = response.json()["prediction"]
@@ -156,3 +163,24 @@ st.slider(
 
 predict()
 st.success(f"prediction: {st.session_state.prediction}")
+
+st.text("")
+st.text("")
+st.text("")
+st.markdown("""
+
+#### Project for the Productionalizing ML on Cloud course at Plaksha Tech Leaders Fellowship.
+
+based on CarDekho sales data (1994-2020)
+                        
+### Git Repositories
+- [Streamlit](https://github.com/amalunnikrishnan/car-price-streamlit)
+- [Flask API](https://github.com/amalunnikrishnan/car-price-flask-api)
+- [Combined](https://github.com/amalunnikrishnan/car-price-predictor)
+
+### Team
+- [Amal Nair](https://github.com/amalunnikrishnan)
+- [Cefil Joseph Soans](https://github.com/cefiljoseph)
+- [Rajat Jacob](https://github.com/RajatJacob)
+
+""")
